@@ -15,8 +15,8 @@ class MainPresenterImpl<T : AppState, V : View>(
         RepositoryImplementation(DataSourceRemote()),
         RepositoryImplementation(DataSourceLocal())
     ),
-    protected val compositeDisposable: CompositeDisposable = CompositeDisposable(),
-    protected val schedulerProvider: SchedulerProvider = SchedulerProvider()
+    private val compositeDisposable: CompositeDisposable = CompositeDisposable(),
+    private val schedulerProvider: SchedulerProvider = SchedulerProvider(),
 ) : Presenter<T, V> {
 
     private var currentView: V? = null

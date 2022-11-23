@@ -4,16 +4,26 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
-    <FrameLayout
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/success_linear_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center">
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/searchView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/search_view_background" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/main_activity_recyclerview"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/search_fab"
@@ -23,7 +33,8 @@
             android:layout_marginEnd="@dimen/margin_medium"
             android:layout_marginBottom="@dimen/margin_medium"
             android:src="@drawable/ic_search" />
-    </FrameLayout>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
     <FrameLayout
         android:id="@+id/loading_frame_layout"
