@@ -5,15 +5,14 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import geekbrains.ru.translator.view.main.adapter.MainAdapter
 import ru.geekbrains.androiddevelopment.R
 import ru.geekbrains.androiddevelopment.databinding.ActivityMainBinding
 import ru.geekbrains.androiddevelopment.model.data.AppState
 import ru.geekbrains.androiddevelopment.model.data.DataModel
-import ru.geekbrains.androiddevelopment.presenter.Presenter
 import ru.geekbrains.androiddevelopment.view.base.BaseActivity
-import ru.geekbrains.androiddevelopment.view.base.View
 
 class MainActivity : BaseActivity<AppState>() {
 
@@ -27,33 +26,8 @@ class MainActivity : BaseActivity<AppState>() {
             }
         }
 
-    override fun createPresenter(): Presenter<AppState, View> {
-        return MainPresenterImpl()
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        initialization()
-    }
-
-    private fun initialization() {
-        binding.searchView.setOnQueryTextListener(searchViewListener)
-    }
-
-    private val searchViewListener = object : SearchView.OnQueryTextListener {
-        override fun onQueryTextSubmit(query: String?): Boolean {
-            query?.let { keyWord ->
-                presenter.getData(keyWord, true)
-            }
-            binding.searchView.clearFocus();
-            return true
-        }
-
-        override fun onQueryTextChange(newText: String?): Boolean {
-            return true
-        }
+    override val model: MainViewModel by lazy {
+        ViewModelProvider.NewInstanceFactory().create(MainViewModel::class.java)
     }
 
     override fun renderData(appState: AppState) {
@@ -91,11 +65,41 @@ class MainActivity : BaseActivity<AppState>() {
         }
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        initialization()
+    }
+
+    private fun initialization() {
+        binding.searchView.setOnQueryTextListener(searchViewListener)
+    }
+
+    private val searchViewListener = object : SearchView.OnQueryTextListener {
+        override fun onQueryTextSubmit(query: String?): Boolean {
+            query?.let { keyWord ->
+                model.getData(keyWord, true).observe(this@MainActivity) {
+                    renderData(it)
+                }
+            }
+            binding.searchView.clearFocus();
+            return true
+        }
+
+        override fun onQueryTextChange(newText: String?): Boolean {
+            return true
+        }
+    }
+
+
     private fun showErrorScreen(error: String?) {
         showViewError()
         binding.errorTextview.text = error ?: getString(R.string.undefined_error)
         binding.reloadButton.setOnClickListener {
-            presenter.getData("hi", true)
+            model.getData("Hi", true).observe(this) {
+                renderData(it)
+            }
         }
     }
 
