@@ -14,10 +14,11 @@ import ru.geekbrains.androiddevelopment.R
 import ru.geekbrains.androiddevelopment.databinding.ActivityMainBinding
 import ru.geekbrains.androiddevelopment.model.data.AppState
 import ru.geekbrains.androiddevelopment.model.data.DataModel
+import ru.geekbrains.androiddevelopment.network.isOnline
 import ru.geekbrains.androiddevelopment.view.base.BaseActivity
 import javax.inject.Inject
 
-class MainActivity : BaseActivity<AppState>() {
+class MainActivity : BaseActivity<AppState, MainInteractor>() {
 
     private lateinit var binding: ActivityMainBinding
 
@@ -76,9 +77,9 @@ class MainActivity : BaseActivity<AppState>() {
         initialization()
         AndroidInjection.inject(this)
         model = viewModelFactory.create(MainViewModel::class.java)
-        model.subscribe().observe(this@MainActivity, Observer<AppState> {
+        model.subscribe().observe(this@MainActivity) {
             renderData(it)
-        })
+        }
     }
 
     private fun initialization() {
@@ -87,8 +88,13 @@ class MainActivity : BaseActivity<AppState>() {
 
     private val searchViewListener = object : SearchView.OnQueryTextListener {
         override fun onQueryTextSubmit(query: String?): Boolean {
+            isNetworkAvailable = isOnline(applicationContext)
             query?.let { keyWord ->
-                model.getData(keyWord, true)
+                if (isNetworkAvailable) {
+                    model.getData(keyWord, isNetworkAvailable)
+                } else {
+                    showNoInternetConnectionDialog()
+                }
             }
             binding.searchView.clearFocus();
             return true

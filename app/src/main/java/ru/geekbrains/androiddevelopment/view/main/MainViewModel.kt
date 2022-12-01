@@ -9,6 +9,7 @@ import ru.geekbrains.androiddevelopment.model.data.Meanings
 import ru.geekbrains.androiddevelopment.model.datasource.DataSourceLocal
 import ru.geekbrains.androiddevelopment.model.datasource.DataSourceRemote
 import ru.geekbrains.androiddevelopment.model.repository.RepositoryImplementation
+import ru.geekbrains.androiddevelopment.network.parseSearchResults
 import ru.geekbrains.androiddevelopment.viewmodel.BaseViewModel
 import javax.inject.Inject
 
@@ -48,37 +49,6 @@ class MainViewModel @Inject constructor(private val interactor: MainInteractor) 
 
             override fun onComplete() {
             }
-        }
-    }
-}
-
-fun parseSearchResults(state: AppState): AppState {
-    val newSearchResults = arrayListOf<DataModel>()
-    when (state) {
-        is AppState.Success -> {
-            val searchResults = state.data
-            if (!searchResults.isNullOrEmpty()) {
-                for (searchResult in searchResults) {
-                    parseResult(searchResult, newSearchResults)
-                }
-            }
-        }
-        else -> {}
-    }
-
-    return AppState.Success(newSearchResults)
-}
-
-private fun parseResult(dataModel: DataModel, newDataModels: ArrayList<DataModel>) {
-    if (!dataModel.text.isNullOrBlank() && !dataModel.meanings.isNullOrEmpty()) {
-        val newMeanings = arrayListOf<Meanings>()
-        for (meaning in dataModel.meanings) {
-            if (meaning.translation != null && !meaning.translation.translation.isNullOrBlank()) {
-                newMeanings.add(Meanings(meaning.translation, meaning.imageUrl))
-            }
-        }
-        if (newMeanings.isNotEmpty()) {
-            newDataModels.add(DataModel(dataModel.text, newMeanings))
         }
     }
 }

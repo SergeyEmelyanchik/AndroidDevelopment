@@ -3,8 +3,15 @@
     <string name="error_textview_stub">Error</string>
     <string name="reload_button">Reload</string>
     <string name="undefined_error">Undefined error</string>
-    <string name="empty_server_response_on_success">Response from server is empty</string>
+    <string name="empty_server_response_on_success">Couldn\'t find any definitions</string>
     <string name="button_search">Search</string>
     <string name="search_hint">New word</string>
+    <string name="dialog_title_device_is_offline">No internet connection</string>
     <string name="delete_description">X</string>
+    <string name="dialog_tittle_sorry">Sorry</string>
+    <string name="image_stub">image</string>
+    <string name="dialog_button_cancel">Cancel</string>
+    <string name="dialog_title_stub">Undefined error</string>
+    <string name="dialog_message_device_is_offline">The application cannot be used without an internet connection. Please check
+your internet connection.</string>
 </resources>
