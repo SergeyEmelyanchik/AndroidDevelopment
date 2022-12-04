@@ -10,9 +10,9 @@ import ru.geekbrains.androiddevelopment.presenter.Interactor
 import javax.inject.Inject
 import javax.inject.Named
 
-class MainInteractor @Inject constructor(
-    @Named(NAME_REMOTE) val remoteRepo: Repository<List<DataModel>>,
-    @Named(NAME_LOCAL) val localRepo: Repository<List<DataModel>>
+class MainInteractor(
+    val remoteRepo: Repository<List<DataModel>>,
+    val localRepo: Repository<List<DataModel>>,
 ) : Interactor<AppState> {
     override fun getData(word: String, fromRemoteSources: Boolean): Observable<AppState> {
         return if (fromRemoteSources) {
