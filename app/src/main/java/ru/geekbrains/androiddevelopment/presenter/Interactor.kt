@@ -1,8 +1,6 @@
 package ru.geekbrains.androiddevelopment.presenter
 
-import io.reactivex.Observable
-
 interface Interactor<T> {
 
-    fun getData(word: String, fromRemoteSource: Boolean): Observable<T>
+    suspend fun getData(word: String, fromRemoteSources: Boolean): T
 }
