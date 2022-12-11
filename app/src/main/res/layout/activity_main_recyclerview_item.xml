@@ -1,47 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/error_linear_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/margin_medium"
-    android:orientation="vertical">
-
-    <TextView
-        android:id="@+id/header_textview_recycler_item"
-        style="@style/HeaderTextStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_medium"
-        tools:text="Header" />
+    app:cardCornerRadius="@dimen/radius"
+    app:cardElevation="@dimen/elevation">
 
     <LinearLayout
+        android:id="@+id/error_linear_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginStart="@dimen/margin_medium">
+        android:layout_marginTop="@dimen/margin_medium"
+        android:orientation="vertical">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/image_url"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_search"
-            android:scaleType="centerCrop"
-            android:layout_marginEnd="@dimen/margin_small"/>
+        <TextView
+            android:id="@+id/header_textview_recycler_item"
+            style="@style/HeaderTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_medium"
+            tools:text="Header" />
 
-    <TextView
-        android:id="@+id/description_textview_recycler_item"
-        style="@style/BaseTextStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_medium"
-        tools:text="Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_medium"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/description_textview_recycler_item"
+                style="@style/BaseTextStyle"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                tools:text="Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="@dimen/max_icon_size"
+                android:layout_marginEnd="@dimen/margin_small"
+                android:layout_weight="1"
+                android:backgroundTint="@color/color_gray"
+                app:cardCornerRadius="@dimen/radius"
+                app:cardElevation="@dimen/elevation">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/image_url"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_search" />
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+        <View xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/hairline"
+            android:layout_marginTop="@dimen/margin_small"
+            android:background="@color/color_gray" />
     </LinearLayout>
-
-    <View xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/hairline"
-        android:layout_marginTop="@dimen/margin_small"
-        android:background="@color/color_gray" />
-</LinearLayout>
+</androidx.cardview.widget.CardView>

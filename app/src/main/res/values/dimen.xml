@@ -23,4 +23,9 @@
 
     //Corner radius
     <dimen name="bottom_sheet_dialog_corner_radius">10dp</dimen>
+
+    <dimen name="radius">10dp</dimen>
+    <dimen name="elevation">8dp</dimen>
+    <dimen name="max_icon_size">70dp</dimen>
+    <dimen name="separator">10dp</dimen>
 </resources>

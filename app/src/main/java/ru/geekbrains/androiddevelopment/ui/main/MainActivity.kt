@@ -1,11 +1,14 @@
-package ru.geekbrains.androiddevelopment.view.main
+package ru.geekbrains.androiddevelopment.ui.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.Toast
+import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import geekbrains.ru.translator.view.main.adapter.MainAdapter
 import kotlinx.android.synthetic.main.activity_main.*
@@ -15,7 +18,9 @@ import ru.geekbrains.androiddevelopment.model.data.AppState
 import ru.geekbrains.androiddevelopment.model.data.DataModel
 import ru.geekbrains.androiddevelopment.network.isOnline
 import ru.geekbrains.androiddevelopment.ui.base.BaseActivity
-import ru.geekbrains.androiddevelopment.ui.main.MainInteractor
+import ru.geekbrains.androiddevelopment.ui.description.DescriptionActivity
+import ru.geekbrains.androiddevelopment.view.main.MainViewModel
+import ru.geekbrains.androiddevelopment.view.main.SearchDialogFragment
 
 
 class MainActivity : BaseActivity<AppState, MainInteractor>() {
@@ -30,7 +35,9 @@ class MainActivity : BaseActivity<AppState, MainInteractor>() {
     private val onListItemClickListener: MainAdapter.OnListItemClickListener =
         object : MainAdapter.OnListItemClickListener {
             override fun onItemClick(data: DataModel) {
-                Toast.makeText(this@MainActivity, data.text, Toast.LENGTH_SHORT).show()
+                startActivity(
+                    Intent(this@MainActivity, DescriptionActivity::class.java)
+                )
             }
         }
     private val onSearchClickListener: SearchDialogFragment.OnSearchClickListener =
@@ -67,6 +74,13 @@ class MainActivity : BaseActivity<AppState, MainInteractor>() {
         search_fab.setOnClickListener(fabClickListener)
         main_activity_recyclerview.layoutManager = LinearLayoutManager(applicationContext)
         main_activity_recyclerview.adapter = adapter
+
+        val itemDecoration = DividerItemDecoration(this@MainActivity, LinearLayoutManager.VERTICAL)
+        itemDecoration.setDrawable(
+            ResourcesCompat.getDrawable(resources, R.drawable.separator_vertical, null)!!
+        )
+        main_activity_recyclerview.addItemDecoration(itemDecoration)
+
     }
 
     override fun renderData(appState: AppState) {
