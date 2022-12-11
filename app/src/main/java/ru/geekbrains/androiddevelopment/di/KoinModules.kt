@@ -7,7 +7,7 @@ import ru.geekbrains.androiddevelopment.model.datasource.RetrofitImplementation
 import ru.geekbrains.androiddevelopment.model.datasource.RoomDataBaseImplementation
 import ru.geekbrains.androiddevelopment.model.repository.Repository
 import ru.geekbrains.androiddevelopment.model.repository.RepositoryImplementation
-import ru.geekbrains.androiddevelopment.view.main.MainInteractor
+import ru.geekbrains.androiddevelopment.ui.main.MainInteractor
 import ru.geekbrains.androiddevelopment.view.main.MainViewModel
 
 val application = module {
@@ -21,5 +21,5 @@ val application = module {
 
 val mainScreen = module {
     factory { MainInteractor(get(named(NAME_REMOTE)), get(named(NAME_LOCAL))) }
-    factory { MainViewModel(interactor = get()) }
+    factory { MainViewModel(get()) }
 }

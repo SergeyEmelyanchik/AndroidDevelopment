@@ -6,9 +6,11 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import ru.geekbrains.androiddevelopment.model.data.AppState
 import ru.geekbrains.androiddevelopment.network.parseSearchResults
+import ru.geekbrains.androiddevelopment.ui.main.MainInteractor
 import ru.geekbrains.androiddevelopment.viewmodel.BaseViewModel
+import javax.inject.Inject
 
-class MainViewModel(private val interactor: MainInteractor) :
+class MainViewModel @Inject constructor(private val interactor: MainInteractor) :
     BaseViewModel<AppState>() {
 
     private val liveDataForViewToObserve: LiveData<AppState> = _mutableLiveData
@@ -26,6 +28,7 @@ class MainViewModel(private val interactor: MainInteractor) :
             startInteractor(word, isOnline)
         }
     }
+
     // Добавляем suspend
     // withContext(Dispatchers.IO) указывает, что доступ в сеть должен
     // осуществляться через диспетчер IO (который предназначен именно для таких

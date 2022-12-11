@@ -8,5 +8,5 @@ import ru.geekbrains.androiddevelopment.model.data.DataModel
 interface ApiService {
 
     @GET("words/search")
-    fun searchAsync(@Query("search") wordToSearch: String): Deferred<List<DataModel>>
+    fun search(@Query("search") wordToSearch: String): Deferred<List<DataModel>>
 }

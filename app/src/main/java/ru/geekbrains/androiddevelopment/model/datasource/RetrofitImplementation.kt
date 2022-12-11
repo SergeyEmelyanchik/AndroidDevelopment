@@ -10,7 +10,7 @@ import ru.geekbrains.androiddevelopment.model.data.DataModel
 
 class RetrofitImplementation : DataSource<List<DataModel>> {
     override suspend fun getData(word: String): List<DataModel> {
-        return getService(BaseInterceptor.interceptor).searchAsync(word).await()
+        return getService(BaseInterceptor.interceptor).search(word).await()
     }
 
     private fun getService(interceptor: Interceptor): ApiService {

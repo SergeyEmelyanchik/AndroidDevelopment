@@ -1,7 +1,5 @@
-package ru.geekbrains.androiddevelopment.view.base
+package ru.geekbrains.androiddevelopment.ui.base
 
-import android.content.Context
-import android.net.ConnectivityManager
 import android.os.Bundle
 import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
@@ -13,17 +11,18 @@ import ru.geekbrains.androiddevelopment.presenter.Interactor
 import ru.geekbrains.androiddevelopment.viewmodel.BaseViewModel
 
 abstract class BaseActivity<T : AppState, I : Interactor<T>> : AppCompatActivity() {
+
     abstract val model: BaseViewModel<T>
     protected var isNetworkAvailable: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
         super.onCreate(savedInstanceState, persistentState)
-        isNetworkAvailable = isOnline(getConnectivityManager())
+        isNetworkAvailable = isOnline(applicationContext)
     }
 
     override fun onResume() {
         super.onResume()
-        isNetworkAvailable = isOnline(getConnectivityManager())
+        isNetworkAvailable = isOnline(applicationContext)
         if (!isNetworkAvailable && isDialogNull()) {
             showNoInternetConnectionDialog()
         }
@@ -37,16 +36,11 @@ abstract class BaseActivity<T : AppState, I : Interactor<T>> : AppCompatActivity
     }
 
     protected fun showAlertDialog(title: String?, message: String?) {
-        AlertDialogFragment.newInstance(title, message)
-            .show(supportFragmentManager, DIALOG_FRAGMENT_TAG)
+        AlertDialogFragment.newInstance(title, message).show(supportFragmentManager, DIALOG_FRAGMENT_TAG)
     }
 
     private fun isDialogNull(): Boolean {
         return supportFragmentManager.findFragmentByTag(DIALOG_FRAGMENT_TAG) == null
-    }
-
-    protected fun getConnectivityManager(): ConnectivityManager {
-        return applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     }
 
     abstract fun renderData(dataModel: T)

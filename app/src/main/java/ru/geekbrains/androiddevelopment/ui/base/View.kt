@@ -1,4 +1,4 @@
-package ru.geekbrains.androiddevelopment.view.base
+package ru.geekbrains.androiddevelopment.ui.base
 
 import ru.geekbrains.androiddevelopment.model.data.AppState
 

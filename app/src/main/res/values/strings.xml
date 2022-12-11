@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Dictionary</string>
     <string name="error_textview_stub">Error</string>
+    <string name="error_stub">Error</string>
     <string name="reload_button">Reload</string>
     <string name="undefined_error">Undefined error</string>
     <string name="empty_server_response_on_success">Couldn\'t find any definitions</string>
@@ -14,4 +15,5 @@
     <string name="dialog_title_stub">Undefined error</string>
     <string name="dialog_message_device_is_offline">The application cannot be used without an internet connection. Please check
 your internet connection.</string>
+    <string name="dialog_title_sorry">Sorry</string>
 </resources>
