@@ -1,13 +1,10 @@
 package ru.geekbrains.androiddevelopment.ui.main
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
-import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import geekbrains.ru.translator.view.main.adapter.MainAdapter
@@ -20,7 +17,6 @@ import ru.geekbrains.androiddevelopment.network.convertMeaningsToString
 import ru.geekbrains.androiddevelopment.network.isOnline
 import ru.geekbrains.androiddevelopment.ui.base.BaseActivity
 import ru.geekbrains.androiddevelopment.ui.description.DescriptionActivity
-import ru.geekbrains.androiddevelopment.view.main.MainViewModel
 import ru.geekbrains.androiddevelopment.view.main.SearchDialogFragment
 
 
@@ -73,7 +69,8 @@ class MainActivity : BaseActivity<AppState, MainInteractor>() {
 
         val viewModel: MainViewModel by viewModel()
         model = viewModel
-        model.subscribe().observe(this@MainActivity, Observer<AppState> { renderData(it) })
+        model.getData("", false)
+        model.subscribe().observe(this@MainActivity, { renderData(it) })
     }
 
     private fun initViews() {

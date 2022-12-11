@@ -1,4 +1,4 @@
-package ru.geekbrains.androiddevelopment.view.main
+package ru.geekbrains.androiddevelopment.ui.main
 
 import androidx.lifecycle.LiveData
 import kotlinx.coroutines.Dispatchers
@@ -6,11 +6,9 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import ru.geekbrains.androiddevelopment.model.data.AppState
 import ru.geekbrains.androiddevelopment.network.parseSearchResults
-import ru.geekbrains.androiddevelopment.ui.main.MainInteractor
 import ru.geekbrains.androiddevelopment.viewmodel.BaseViewModel
-import javax.inject.Inject
 
-class MainViewModel @Inject constructor(private val interactor: MainInteractor) :
+class MainViewModel constructor(private val interactor: MainInteractor) :
     BaseViewModel<AppState>() {
 
     private val liveDataForViewToObserve: LiveData<AppState> = _mutableLiveData
