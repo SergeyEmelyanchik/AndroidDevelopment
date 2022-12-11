@@ -16,6 +16,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.geekbrains.androiddevelopment.R
 import ru.geekbrains.androiddevelopment.model.data.AppState
 import ru.geekbrains.androiddevelopment.model.data.DataModel
+import ru.geekbrains.androiddevelopment.network.convertMeaningsToString
 import ru.geekbrains.androiddevelopment.network.isOnline
 import ru.geekbrains.androiddevelopment.ui.base.BaseActivity
 import ru.geekbrains.androiddevelopment.ui.description.DescriptionActivity
@@ -36,7 +37,12 @@ class MainActivity : BaseActivity<AppState, MainInteractor>() {
         object : MainAdapter.OnListItemClickListener {
             override fun onItemClick(data: DataModel) {
                 startActivity(
-                    Intent(this@MainActivity, DescriptionActivity::class.java)
+                    DescriptionActivity.getIntent(
+                        this@MainActivity,
+                        data.text!!,
+                        convertMeaningsToString(data.meanings!!),
+                        data.meanings[0].imageUrl
+                    )
                 )
             }
         }
