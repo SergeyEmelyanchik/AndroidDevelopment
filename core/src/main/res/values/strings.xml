@@ -1,0 +1,14 @@
+<resources>
+    <string name="error_stub">Error</string>
+    <string name="undefined_error">Undefined error</string>
+    <string name="empty_server_response_on_success">Response from server is empty</string>
+    <string name="delete_description">X</string>
+    <string name="dialog_title_device_is_offline">No internet connection</string>
+    <string name="error_initialised">The ViewModel should be initialised first</string>
+    <string name="dialog_message_device_is_offline">You can not use app without internet connection. Please, check
+        internet connection.
+    </string>
+    <string name="dialog_button_cancel">Cancel</string>
+    <string name="dialog_title_stub">Undefined error</string>
+    <string name="dialog_title_sorry">Sorry</string>
+</resources>

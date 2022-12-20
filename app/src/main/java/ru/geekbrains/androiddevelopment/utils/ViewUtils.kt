@@ -25,40 +25,6 @@ fun AppCompatImageView.loadImageFromResource(imageUrl: String?) {
 
 }
 
-fun ImageView.useGlideToLoadPhoto(imageLink: String, view: SwipeRefreshLayout) {
-    Glide.with(this)
-        .load("https:$imageLink")
-        .listener(object : RequestListener<Drawable> {
-            override fun onLoadFailed(
-                e: GlideException?,
-                model: Any?,
-                target: Target<Drawable>?,
-                isFirstResource: Boolean
-            ): Boolean {
-                stopRefreshAnimationIfNeeded(view)
-                this@useGlideToLoadPhoto.setImageResource(R.drawable.ic_load_error_vector)
-                return false
-            }
-
-            override fun onResourceReady(
-                resource: Drawable?,
-                model: Any?,
-                target: Target<Drawable>?,
-                dataSource: DataSource?,
-                isFirstResource: Boolean
-            ): Boolean {
-                stopRefreshAnimationIfNeeded(view)
-                return false
-            }
-        })
-        .apply(
-            RequestOptions()
-                .placeholder(R.drawable.ic_no_photo_vector)
-                .centerCrop()
-        )
-        .into(this)
-}
-
 
 fun ImageView.usePicassoToLoadPhoto(imageLink: String, view: SwipeRefreshLayout) {
     Picasso.get().load("https:$imageLink")

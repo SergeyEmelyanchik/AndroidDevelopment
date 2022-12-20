@@ -21,4 +21,5 @@
     <color name="color_search_view_background">#FCEEEEEE</color>
     <color name="color_accent">#D81B60</color>
     <color name="color_button">#FF74A3</color>
+    <color name="pic_back">#FF3A82</color>
 </resources>

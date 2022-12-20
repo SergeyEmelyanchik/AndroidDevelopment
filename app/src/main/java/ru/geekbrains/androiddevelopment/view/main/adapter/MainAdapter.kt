@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_main_recyclerview_item.view.*
 import ru.geekbrains.androiddevelopment.R
-import ru.geekbrains.androiddevelopment.model.data.DataModel
+import ru.geekbrains.model.data.DataModel
 import ru.geekbrains.androiddevelopment.utils.loadImageFromResource
 
 

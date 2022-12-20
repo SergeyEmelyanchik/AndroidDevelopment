@@ -1,11 +1,11 @@
 package ru.geekbrains.androiddevelopment.ui.main
 
 
-import ru.geekbrains.androiddevelopment.domain.RepositoryLocal
-import ru.geekbrains.androiddevelopment.model.data.AppState
-import ru.geekbrains.androiddevelopment.model.data.DataModel
-import ru.geekbrains.androiddevelopment.model.repository.Repository
-import ru.geekbrains.androiddevelopment.presenter.Interactor
+import ru.geekbrains.repository.domain.RepositoryLocal
+import ru.geekbrains.model.data.AppState
+import ru.geekbrains.model.data.DataModel
+import ru.geekbrains.repository.domain.Repository
+import ru.geekbrains.core.viewModel.Interactor
 
 class MainInteractor(
     private val repositoryRemote: Repository<List<DataModel>>,

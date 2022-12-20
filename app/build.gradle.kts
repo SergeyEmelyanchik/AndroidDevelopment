@@ -38,6 +38,14 @@ android {
 
 dependencies {
 
+    //Module
+    implementation(project(mapOf("path" to ":core")))
+    implementation(project(mapOf("path" to ":model")))
+    implementation(project(mapOf("path" to ":repository")))
+    implementation(project(mapOf("path" to ":utils")))
+    implementation(project(mapOf("path" to ":favoriteScreen")))
+
+
     //Kotlin
     implementation ("androidx.core:core-ktx:1.9.0")
     implementation ("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.0")
@@ -45,6 +53,11 @@ dependencies {
     //AndroidX
     implementation ("androidx.appcompat:appcompat:1.5.1")
     implementation ("androidx.constraintlayout:constraintlayout:2.1.4")
+
+    //??
+    implementation ("androidx.legacy:legacy-support-v4:1.0.0")
+    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.5.1")
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
 
     //Rx-Java
     implementation ("io.reactivex.rxjava2:rxandroid:2.1.0")

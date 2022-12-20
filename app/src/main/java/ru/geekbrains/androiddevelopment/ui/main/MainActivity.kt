@@ -1,9 +1,10 @@
 package ru.geekbrains.androiddevelopment.ui.main
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
-import android.view.View.GONE
-import android.view.View.VISIBLE
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,13 +12,13 @@ import geekbrains.ru.translator.view.main.adapter.MainAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.geekbrains.androiddevelopment.R
-import ru.geekbrains.androiddevelopment.model.data.AppState
-import ru.geekbrains.androiddevelopment.model.data.DataModel
+import ru.geekbrains.model.data.AppState
 import ru.geekbrains.androiddevelopment.network.convertMeaningsToString
 import ru.geekbrains.androiddevelopment.network.isOnline
-import ru.geekbrains.androiddevelopment.ui.base.BaseActivity
 import ru.geekbrains.androiddevelopment.ui.description.DescriptionActivity
 import ru.geekbrains.androiddevelopment.view.main.SearchDialogFragment
+import ru.geekbrains.core.base.BaseActivity
+import ru.geekbrains.favoritescreen.ui.FavoriteActivity
 
 
 class MainActivity : BaseActivity<AppState, MainInteractor>() {
@@ -31,13 +32,13 @@ class MainActivity : BaseActivity<AppState, MainInteractor>() {
         }
     private val onListItemClickListener: MainAdapter.OnListItemClickListener =
         object : MainAdapter.OnListItemClickListener {
-            override fun onItemClick(data: DataModel) {
+            override fun onItemClick(data: ru.geekbrains.model.data.DataModel) {
                 startActivity(
                     DescriptionActivity.getIntent(
                         this@MainActivity,
                         data.text!!,
                         convertMeaningsToString(data.meanings!!),
-                        data.meanings[0].imageUrl
+                        data.meanings!![0].imageUrl
                     )
                 )
             }
@@ -64,7 +65,7 @@ class MainActivity : BaseActivity<AppState, MainInteractor>() {
 
     private fun iniViewModel() {
         if (main_activity_recyclerview.adapter != null) {
-            throw IllegalStateException("The ViewModel should be initialised first")
+            throw IllegalStateException(getString(R.string.error_initialised))
         }
 
         val viewModel: MainViewModel by viewModel()
@@ -83,51 +84,30 @@ class MainActivity : BaseActivity<AppState, MainInteractor>() {
             ResourcesCompat.getDrawable(resources, R.drawable.separator_vertical, null)!!
         )
         main_activity_recyclerview.addItemDecoration(itemDecoration)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.favorite_menu, menu)
+        return super.onCreateOptionsMenu(menu)
 
     }
 
-    override fun renderData(appState: AppState) {
-        when (appState) {
-            is AppState.Success -> {
-                showViewWorking()
-                val data = appState.data
-                if (data.isNullOrEmpty()) {
-                    showAlertDialog(
-                        getString(R.string.dialog_title_sorry),
-                        getString(R.string.empty_server_response_on_success)
-                    )
-                } else {
-                    adapter!!.setData(data)
-                }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.menu_favorite -> {
+                startActivity(Intent(this, FavoriteActivity::class.java))
+                true
             }
-            is AppState.Loading -> {
-                showViewLoading()
-                if (appState.progress != null) {
-                    progress_bar_horizontal.visibility = VISIBLE
-                    progress_bar_round.visibility = GONE
-                    progress_bar_horizontal.progress = appState.progress
-                } else {
-                    progress_bar_horizontal.visibility = GONE
-                    progress_bar_round.visibility = VISIBLE
-                }
-            }
-            is AppState.Error -> {
-                showViewWorking()
-                showAlertDialog(getString(R.string.error_stub), appState.error.message)
-            }
+            else -> super.onOptionsItemSelected(item)
         }
-    }
-
-    private fun showViewWorking() {
-        loading_frame_layout.visibility = GONE
-    }
-
-    private fun showViewLoading() {
-        loading_frame_layout.visibility = VISIBLE
     }
 
     companion object {
         private const val BOTTOM_SHEET_FRAGMENT_DIALOG_TAG =
             "74a54328-5d62-46bf-ab6b-cbf5fgt0-092395"
+    }
+
+    override fun setDataToAdapter(data: List<ru.geekbrains.model.data.DataModel>) {
+        adapter.setData(data)
     }
 }

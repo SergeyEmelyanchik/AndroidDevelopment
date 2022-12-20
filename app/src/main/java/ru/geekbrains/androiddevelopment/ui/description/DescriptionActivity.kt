@@ -7,10 +7,9 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_description.*
 import ru.geekbrains.androiddevelopment.R
-import ru.geekbrains.androiddevelopment.network.AlertDialogFragment
+import ru.geekbrains.utils.ui.AlertDialogFragment
 import ru.geekbrains.androiddevelopment.network.isOnline
 import ru.geekbrains.androiddevelopment.utils.stopRefreshAnimationIfNeeded
-import ru.geekbrains.androiddevelopment.utils.usePicassoToLoadPhoto
 
 class DescriptionActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,7 +56,7 @@ class DescriptionActivity : AppCompatActivity() {
         if (isOnline(applicationContext)) {
             setData()
         } else {
-            AlertDialogFragment.newInstance(
+            ru.geekbrains.utils.ui.AlertDialogFragment.newInstance(
                 getString(R.string.dialog_title_device_is_offline),
                 getString(R.string.dialog_message_device_is_offline)
             ).show(

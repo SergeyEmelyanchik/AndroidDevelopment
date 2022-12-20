@@ -28,4 +28,5 @@
     <dimen name="elevation">8dp</dimen>
     <dimen name="max_icon_size">70dp</dimen>
     <dimen name="separator">10dp</dimen>
+    <dimen name="card_height">150dp</dimen>
 </resources>
