@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
+import kotlinx.android.synthetic.main.activity_favorite.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.geekbrains.core.base.BaseActivity
 import ru.geekbrains.favoritescreen.R

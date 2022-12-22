@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         minSdk = 24
-        targetSdk = 33
+        targetSdk = 32
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -41,7 +41,7 @@ dependencies {
 
     //Kotlin
     implementation ("androidx.core:core-ktx:1.9.0")
-    implementation ("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.0")
+    implementation ("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.20")
 
     //AndroidX
     implementation ("androidx.appcompat:appcompat:1.5.1")
@@ -54,7 +54,7 @@ dependencies {
 
     //Rx-Java
     implementation ("io.reactivex.rxjava2:rxandroid:2.1.0")
-    implementation ("io.reactivex.rxjava2:rxjava:2.2.8")
+    implementation ("io.reactivex.rxjava2:rxjava:2.2.9")
 
     //Retrofit 2
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")

@@ -5,6 +5,7 @@ import android.os.PersistableBundle
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.loading_layout.*
 import ru.geekbrains.androiddevelopment.network.isOnline
 import ru.geekbrains.core.R
 import ru.geekbrains.core.viewModel.BaseViewModel

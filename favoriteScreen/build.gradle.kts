@@ -1,6 +1,8 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
+    id ("kotlin-kapt")
+    id ("kotlin-android-extensions")
 }
 
 android {
@@ -8,7 +10,7 @@ android {
 
     defaultConfig {
         minSdk = 24
-        targetSdk = 33
+        targetSdk = 32
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -45,13 +47,9 @@ dependencies {
     implementation(project(mapOf("path" to ":repository")))
     implementation(project(mapOf("path" to ":utils")))
 
-    //Room
-    implementation("androidx.room:room-runtime:2.4.3")
-    implementation("androidx.room:room-ktx:2.4.3")
-
     //Kotlin
     implementation ("androidx.core:core-ktx:1.9.0")
-    implementation ("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.0")
+    implementation ("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.20")
 
     //AndroidX
     implementation ("androidx.appcompat:appcompat:1.5.1")
@@ -64,7 +62,7 @@ dependencies {
 
     //Rx-Java
     implementation ("io.reactivex.rxjava2:rxandroid:2.1.0")
-    implementation ("io.reactivex.rxjava2:rxjava:2.2.8")
+    implementation ("io.reactivex.rxjava2:rxjava:2.2.9")
 
     //Retrofit 2
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
@@ -75,8 +73,6 @@ dependencies {
 
     //Picasso
     implementation ("com.squareup.picasso:picasso:2.71828")
-    implementation ("com.github.bumptech.glide:glide:4.11.0")
-    implementation ("io.coil-kt:coil:0.11.0")
 
     //Test
     implementation ("androidx.appcompat:appcompat:1.5.1")
@@ -85,6 +81,13 @@ dependencies {
 
     //Coil
     implementation("io.coil-kt:coil:2.1.0")
+
+    //Dagger
+    implementation ("com.google.dagger:dagger-android:2.44.1")
+    implementation ("com.google.dagger:dagger-android-support:2.44.1")
+    implementation ("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
+    kapt ("com.google.dagger:dagger-android-processor:2.44.1")
+    kapt ("com.google.dagger:dagger-compiler:2.44.1")
 
     //Koin
     implementation("io.insert-koin:koin-core:3.2.2")
@@ -96,7 +99,14 @@ dependencies {
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
     implementation ("com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2")
 
+    //Glide
+    implementation ("com.github.bumptech.glide:glide:4.13.2")
+    kapt ("com.github.bumptech.glide:compiler:4.13.2")
 
+    //Room
+    implementation ("androidx.room:room-runtime:2.4.3")
+    kapt ("androidx.room:room-compiler:2.4.3")
+    implementation ("androidx.room:room-ktx:2.4.3")
 
     testImplementation ("junit:junit:4.13.2")
     androidTestImplementation ("androidx.test.ext:junit:1.1.4")

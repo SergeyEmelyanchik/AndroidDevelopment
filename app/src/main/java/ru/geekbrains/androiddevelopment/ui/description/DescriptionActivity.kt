@@ -10,6 +10,7 @@ import ru.geekbrains.androiddevelopment.R
 import ru.geekbrains.utils.ui.AlertDialogFragment
 import ru.geekbrains.androiddevelopment.network.isOnline
 import ru.geekbrains.androiddevelopment.utils.stopRefreshAnimationIfNeeded
+import ru.geekbrains.androiddevelopment.utils.usePicassoToLoadPhoto
 
 class DescriptionActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
