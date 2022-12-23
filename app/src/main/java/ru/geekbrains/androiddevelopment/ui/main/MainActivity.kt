@@ -1,10 +1,17 @@
 package ru.geekbrains.androiddevelopment.ui.main
 
+import android.animation.ObjectAnimator
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.ViewTreeObserver
+import android.view.animation.AnticipateInterpolator
+import androidx.annotation.RequiresApi
+import androidx.core.animation.doOnEnd
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,6 +26,10 @@ import ru.geekbrains.androiddevelopment.ui.description.DescriptionActivity
 import ru.geekbrains.androiddevelopment.view.main.SearchDialogFragment
 import ru.geekbrains.core.base.BaseActivity
 import ru.geekbrains.favoritescreen.ui.FavoriteActivity
+
+private const val SLIDE_LEFT_DURATION = 1000L
+private const val COUNTDOWN_DURATION = 2000L
+private const val COUNTDOWN_INTERVAL = 1000L
 
 
 class MainActivity : BaseActivity<AppState, MainInteractor>() {
@@ -56,11 +67,64 @@ class MainActivity : BaseActivity<AppState, MainInteractor>() {
         }
 
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        setDefaultSplashScreen()
         iniViewModel()
         initViews()
+    }
+
+
+    private fun setDefaultSplashScreen() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            setSplashScreenHideAnimation()
+        }
+
+        setSplashScreenDuration()
+    }
+
+    @RequiresApi(33)
+    private fun setSplashScreenHideAnimation() {
+        splashScreen.setOnExitAnimationListener { splashScreenView ->
+            val slideLeft = ObjectAnimator.ofFloat(
+                splashScreenView,
+                View.TRANSLATION_X,
+                0f,
+                -splashScreenView.height.toFloat()
+            )
+            slideLeft.interpolator = AnticipateInterpolator()
+            slideLeft.duration = SLIDE_LEFT_DURATION
+
+            slideLeft.doOnEnd { splashScreenView.remove() }
+            slideLeft.start()
+        }
+    }
+
+    private fun setSplashScreenDuration() {
+        var isHideSplashScreen = false
+
+        object : CountDownTimer(COUNTDOWN_DURATION, COUNTDOWN_INTERVAL) {
+            override fun onTick(millisUntilFinished: Long) {}
+            override fun onFinish() {
+                isHideSplashScreen = true
+            }
+        }.start()
+
+        val content: View = findViewById(android.R.id.content)
+        content.viewTreeObserver.addOnPreDrawListener(
+            object : ViewTreeObserver.OnPreDrawListener {
+                override fun onPreDraw(): Boolean {
+                    return if (isHideSplashScreen) {
+                        content.viewTreeObserver.removeOnPreDrawListener(this)
+                        true
+                    } else {
+                        false
+                    }
+                }
+            }
+        )
     }
 
     private fun iniViewModel() {
