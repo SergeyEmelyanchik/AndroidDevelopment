@@ -68,6 +68,7 @@ class MainActivity : BaseActivity<AppState, MainInteractor>() {
 
 
 
+    @RequiresApi(33)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -77,6 +78,7 @@ class MainActivity : BaseActivity<AppState, MainInteractor>() {
     }
 
 
+    @RequiresApi(33)
     private fun setDefaultSplashScreen() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             setSplashScreenHideAnimation()
